@@ -11,10 +11,12 @@ class MyList extends StatefulWidget {
 
 class _MyList extends State<MyList> {
   int _line = 0;
+  final List _lines = [];
 
   void _addLine() {
     setState(() {
       _line++;
+      _lines.add(_line);
     });
   }
 
@@ -36,23 +38,23 @@ class _MyList extends State<MyList> {
             'Ligne $_line, Type : ${isPrime(_line) ? 'Nombre premier' : isEven(_line) ? 'Pair' : 'Impair'}'),
       ),
       body: ListView.builder(
-        itemCount: _line,
+        itemCount: _lines.length,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             title: Row(
               children: <Widget>[
-                isPrime(index)
+                isPrime(_lines[index])
                     ? Image.asset('images/ananas.png', height: 40)
-                    : isEven(index)
+                    : isEven(_lines[index])
                         ? Image.asset('images/poire.png', height: 40)
                         : Image.asset('images/pomme.png', height: 40),
-                Text('$index',
+                Text('${_lines[index]}',
                     style: const TextStyle(
                       color: Colors.white,
                     )),
               ],
             ),
-            tileColor: isEven(index) ? Colors.indigo : Colors.cyan,
+            tileColor: isEven(_lines[index]) ? Colors.indigo : Colors.cyan,
           );
         },
       ),
